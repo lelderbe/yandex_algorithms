@@ -78,72 +78,80 @@ def ex_d():
 # ex_d()
 
 from math import ceil
+import random
 
 def ex_e():
-	k2, e, k1, p1, e1 = input().split()
-	k2 = int(k2)
-	e = int(e)
-	k1 = int(k1)
-	p1 = int(p1)
-	e1 = int(e1)
-
-	# print('k2:', k2, 'e:', e, 'k1:', k1, 'p1:', p1, 'e1:', e1)
-
-	if e1 > e or k2 <= 0 or e <= 0 or k1 <= 0 or p1 <= 0 or e1 <= 0:
-		print(-1, -1)
-		return
-	if (e1 == 1 and p1 == 1):
-		if (e == 1):
-			print(0, 1)
+	def solve(k2, e, k1, p1, e1):
+		# print('k2:', k2, 'e:', e, 'k1:', k1, 'p1:', p1, 'e1:', e1)
+		
+		# check correct data
+		if e1 > e or k2 <= 0 or e <= 0 or k1 <= 0 or p1 <= 0 or e1 <= 0:
+			print(-1, -1)
 			return
-		if (e >= k2):
-			print(1, 0)
-			return
-		if (k2 < k1):
-			if (e1 == 1):
-				print(1, 1)
-			else:
+
+		# check special cases
+		if (e1 == 1 and p1 == 1):
+			if (e == 1):
+				print(0, 1)
+				return
+			if (e >= k2):
 				print(1, 0)
+				return
+			if (k2 < k1):
+				if (e1 == 1):
+					print(1, 1)
+				else:
+					print(1, 0)
+				return
+			print(0, 0)
 			return
-		print(0, 0)
-		return
 
-	flats = []
-	# count flats per level
-	i = 1
-	# for i in range (1, 100):
-	while True:
-		# print('i:', i)
-		k_end = (p1 - 1) * e * i + e1 * i
-		k_st = k_end - (i - 1)
-		# print('k_st:', k_st, 'k1:', k1, 'k_end:', k_end)
-		if ((k1 >= k_st) and (k1 <= k_end)):
-			flats.append(i)
-		if k1 < k_st:
-			break
-		i = i + 1
+		# count flats per level
+		flats = []
+		for i in range (1, 1000001):
+			k_end = (p1 - 1) * e * i + e1 * i
+			k_st = k_end - (i - 1)
+			# print('k_st:', k_st, 'k1:', k1, 'k_end:', k_end)
+			if ((k1 >= k_st) and (k1 <= k_end)):
+				flats.append(i)
+			if k1 < k_st:
+				break
 
-	# print(flats)
-	p2 = -1
-	e2 = -1
-	# calc k2 data
-	for i in range (len(flats)):
-		e0 = ceil(1.0 * k2 / flats[i])
-		p0 = ceil(1.0 * e0 / e)
-		e0 = e0 % e
-		if e0 == 0:
-			e0 = e
-		if p2 == -1 or p2 == p0:
-			p2 = p0
-		else:
-			p2 = 0
-		if e2 == -1 or e2 == e0:
-			e2 = e0
-		else:
-			e2 = 0
+		# calc k2 data
+		p2 = -1
+		e2 = -1
+		for i in range (len(flats)):
+			e0 = ceil(1.0 * k2 / flats[i])
+			p0 = ceil(1.0 * e0 / e)
+			e0 = e0 % e
+			if e0 == 0:
+				e0 = e
+			if p2 == -1 or p2 == p0:
+				p2 = p0
+			else:
+				p2 = 0
+			if e2 == -1 or e2 == e0:
+				e2 = e0
+			else:
+				e2 = 0
+		
+		print(p2, e2)
 
-	# print('end')
-	print(p2, e2)
+	def auto_test():
+		maxrandval = 10
+		for j in range (10):
+			randvals = [0] * 5
+			for i in range(5):
+				randvals[i] = random.randint(1, maxrandval)
+			k2, e, k1, p1, e1 = randvals
+			solve(k2, e, k1, p1, e1)
+			print(*randvals)
+		pass
+
+	# auto_test()
+	# return
+	k2, e, k1, p1, e1 = list(map(int, input().split()))
+	solve(k2, e, k1, p1, e1)
 
 ex_e()
 
@@ -199,7 +207,6 @@ def ex_i():
 	c = int(input())
 	d = int(input())
 	e = int(input())
-	result = True
 	if check(d, e, a, b) or check(d, e, b, c) or check(d, e, a, c):
 		print('YES')
 	else:
