@@ -13,35 +13,6 @@ def ex_a():
 
 # print(ex_a())
 
-# def ex_b():
-# 	var_const = True
-# 	var_ASC = True
-# 	var_weak_ASC = True
-# 	var_DESC = True
-# 	var_weak_DESC = True
-
-# 	n = int(input())
-# 	if n == -2000000000:
-# 		return 'RANDOM'
-# 	while True:
-# 		a = int(input())
-# 		if a == -2000000000:
-# 			break
-# 		if (var_const):
-# 			var_const = n == a
-# 		if (var_ASC):
-# 			var_ASC = n < a
-# 		if (var_weak_ASC):
-# 			var_weak_ASC = n <= a
-# 		if (var_DESC):
-# 			var_DESC = n > a
-# 		if (var_weak_DESC):
-# 			var_weak_DESC = n >= a
-# 		n = a
-
-# 	pass
-
-
 def ex_b():
 	def is_constant(a, b):
 		if a == b:
@@ -120,7 +91,6 @@ def ex_c():
 	return y
 
 # print(ex_c())
-
 
 def ex_d():
 	elements = input().split()
@@ -201,4 +171,3 @@ def ex_h():
 		print(max0, max1, max2)
 
 # ex_h()
-
